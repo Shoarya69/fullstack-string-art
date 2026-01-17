@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block css %}  {% endblock %}
+
+{% block content %}
+
+
+
+<!-- Flash messages -->
+        <div class="fixed top-5 right-5 z-50">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+                    <div 
+                        class="{% if category == 'error' %} flash-error {% elif category == 'success' %} flash-success {% elif category == 'report' %} flash-report {% else %} flash-info {% endif %}"
+                        x-data="{ show: true }"
+                        x-show="show"
+                        x-init="setTimeout(() => show = false, 4000)">
+                        {{ message }}
+                    </div> 
+            {% endfor %}
+            {% endif %}
+        {% endwith %}
+        </div>
+
+
+
+<div class="test-container">
+          <!-- input box / -->
+    
+    <div class="input_test">
+      <h1 class="input-box-test-12" >This is Input box</h1>
+      <form
+        method="POST"
+        action=""
+        enctype="multipart/form-data"
+        id="for_test_form"
+        onsubmit="loader()"
+      >
+        <label for="edit_type" class="test_lable">Select your Edit-type:</label>
+        <select id="edit_type" class = "test_select" name="edit_type">
+              <option class = "test_opt" value="">-- Select an Option --</option>
+              <option class = "test_opt" value="gray" >GrayScale</option>
+              <option class = "test_opt" value="edge" >Edge</option>
+              <option class = "test_opt" value="smoth">Smooth</option>
+              <option class = "test_opt" value="sharp">Sharpen</option>
+              <option class = "test_opt" value="cart">Cartoon</option>
+        </select>
+          <input id="fi_test_input" type="file" name="ed_image" accept="image/*" oninput="uploadpic(this)"/>
+          <button type="submit" class="test_button">Upload</button>
+      </form>
+        {% if session.get("ed_upload") %}
+          <img id ="pic" src="{{url_for('static',filename=session.get('ed_upload'))}}" alt="Imgae" class="max-w-full max-h-full object-contain">
+        {% else %}
+          <img id="pic" src="{{ url_for('static', filename='picture/image1.png') }}" alt="Image" class="max-w-full max-h-full object-contain">
+        {% endif %}
+      </div>
+
+          <!-- output box html -->
+
+    <div class="output_test">
+        <!-- <h1 class="input-box">This is output box</h1> -->
+        {% if session.get("ed_output_ed") %}
+          <img src="{{url_for('static',filename=session.get('ed_output_ed'))}}" alt="Imgae" class="max-w-full max-h-full object-contain">
+        {% else %}
+          <img id="pic_for_loader" src="{{ url_for('static', filename='picture/image6.png') }}" alt="Image" class="max-w-full max-h-full object-contain">
+          <div id="loader" class="upload_loader hidden ">
+                <div class="w-9 h-9 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+                <p class="text-blue-600 text-sm mt-2 font-medium">processing...</p>
+          </div>
+        {% endif %}
+    </div>
+</div>
+
+  <script>
+        const tooLargeURL = "{{ url_for('error12.too_large2') }}";
+    </script>
+  <script 
+    src="{{ url_for('static',filename='js/test.js') }}">
+        // Backend
+  </script>
+
+{% endblock %}

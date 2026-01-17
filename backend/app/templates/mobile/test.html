@@ -1,0 +1,97 @@
+{% extends 'base_mob.html' %}
+{% block css %}  {% endblock %}
+
+{% block content %}
+
+
+
+<!-- Flash messages -->
+        <div class="fixed top-5 right-5 z-50">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+                    <div 
+                        class="{% if category == 'error' %} flash-error {% elif category == 'success' %} flash-success {% elif category == 'report' %} flash-report {% else %} flash-info {% endif %}"
+                        x-data="{ show: true }"
+                        x-show="show"
+                        x-init="setTimeout(() => show = false, 4000)">
+                        {{ message }}
+                    </div> 
+            {% endfor %}
+            {% endif %}
+        {% endwith %}
+        </div>
+
+
+
+<div class="test-container-mobile">
+  <div class="test-box-mobile">
+    <h2 class="test-title-mobile">choose options</h2>
+
+    <form
+      method="POST"
+      action=""
+      enctype="multipart/form-data"
+      id="for_test_form-mobile"
+      onsubmit="loader()"
+      class="test-form-mobile"
+    >
+      <label for="edit_type" class="test_label-mobile">Select your Edit-type:</label>
+      <select id="edit_type-mobile" class="test_select-mobile" name="edit_type">
+        <option value="">-- Select an Option --</option>
+        <option value="gray">GrayScale</option>
+        <option value="edge">Edge</option>
+        <option value="smoth">Smooth</option>
+        <option value="sharp">Sharpen</option>
+        <option value="cart">Cartoon</option>
+      </select>
+
+      <input
+        id="fi_test_input-mobile"
+        type="file"
+        name="ed_image"
+        accept="image/*"
+        class="test_file-input-mobile"
+        oninput="uploadpic(this)"
+      />
+    </form>
+
+    <div class="test-image-boxes-mobile">
+      <div class="test-image-container-mobile">
+        {% if session.get("ed_upload") %}
+          <img id="pic" src="{{url_for('static',filename=session.get('ed_upload'))}}" alt="Image" class="test-image-mobile">
+        {% else %}
+          <img id="pic" src="{{ url_for('static', filename='picture/image1.png') }}" alt="Image" class="test-image-mobile">
+        {% endif %}
+        <p class="test-image-label-mobile">Input image</p>
+      </div>
+
+      <div class="test-image-container-mobile">
+        {% if session.get("ed_output_ed") %}
+          <img src="{{url_for('static',filename=session.get('ed_output_ed'))}}" alt="Image" class="test-image-mobile">
+        {% else %}
+          <img id="pic_for_loader" src="{{ url_for('static', filename='picture/image6.png') }}" alt="Image" class="test-image-mobile">
+           <div id="loader" class="upload_loader hidden ">
+                <div class="w-9 h-9 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+                <p class="text-blue-600 text-sm mt-2 font-medium">processing...</p>
+          </div>
+        {% endif %}
+        <p class="test-image-label-mobile">Output image</p>
+      </div>
+    </div>
+
+    <button type="submit" form="for_test_form-mobile" class="test-submit-button-mobile">
+      Submit
+    </button>
+  </div>
+</div>
+
+  <script>
+        const tooLargeURL = "{{ url_for('error12.too_large2') }}";
+    </script>
+  <script 
+    src="{{ url_for('static',filename='js/test_mob.js') }}">
+        // Backend
+  </script>
+
+{% endblock %}

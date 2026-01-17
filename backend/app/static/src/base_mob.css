@@ -1,0 +1,86 @@
+@layer components {
+
+  /* 🌟 Overall Layout */
+  .base_mobile_body {
+    @apply bg-base-200 text-base-content min-h-screen flex flex-col items-center font-sans;
+  }
+
+  #logo {
+    @apply text-2xl font-extrabold mt-4 mb-3 text-center text-primary;
+  }
+
+  /* 🧭 Navbar — Horizontal, Clean & Professional */
+  #navbar {
+    @apply bg-base-100 w-[90%] mx-auto rounded-2xl shadow-md py-3 mb-4;
+  }
+
+  .ul_base_nav_mobile {
+    @apply flex flex-wrap justify-center items-center gap-4 text-sm font-semibold;
+  }
+
+  .base_list_nav_mobile{
+    @apply btn btn-ghost text-base text-gray-700 dark:text-gray-200 transition-colors duration-300;
+  }
+  
+  /* Hover and Active (Click) Effects */
+  .base_list_nav_mobile:hover {
+    @apply bg-primary text-white;
+  }
+
+  .base_list_nav_mobile:active,
+  .base_list_nav_mobile[aria-current="page"] {
+    @apply bg-blue-300 text-gray-900;
+  }
+
+  /* Buttons — Consistent with DaisyUI tone */
+  #navbar #logout {
+    @apply btn btn-error text-white;
+  }
+
+  #navbar #login {
+    @apply btn btn-success text-white;
+  }
+
+  .base_list_nav_mobile_history{
+    @apply btn btn-info text-yellow-500;
+  }
+
+  /* ⚡ Main Content */
+  #main {
+    @apply flex flex-col items-center justify-center text-center px-4 py-6 w-[95%] bg-base-100 rounded-xl shadow-lg;
+  }
+
+  #main h1 {
+    @apply text-3xl font-bold mb-3 text-primary;
+  }
+
+  #main p {
+    @apply text-gray-600 dark:text-gray-300 text-sm max-w-xs leading-relaxed;
+  }
+
+  /* ⚓ Footer */
+  #contact {
+    @apply w-full bg-base-300 mt-6 py-6 px-4 rounded-t-2xl text-center text-sm shadow-inner;
+  }
+
+  #contact h3 {
+    @apply text-lg font-semibold text-primary mb-2;
+  }
+
+  #contact p {
+    @apply text-gray-600 dark:text-gray-300 max-w-sm mx-auto;
+  }
+
+  /* 📱 Responsive Improvements */
+  @media (min-width: 640px) {
+    #navbar ul {
+      @apply gap-6 text-base;
+    }
+    #main {
+      @apply w-[80%];
+    }
+    #contact {
+      @apply text-base py-8;
+    }
+  }
+}

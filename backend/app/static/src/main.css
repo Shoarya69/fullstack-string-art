@@ -1,0 +1,32 @@
+
+@import "./prod.css";
+@import "./base.css";
+@import "./auth.css";
+@import "./register.css";
+@import "./test.css";
+@import "./home.css";
+@import "./history.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+/* commen termes */
+
+.flash-error {
+    @apply mb-4 px-4 py-3 rounded shadow-lg text-white bg-red-500;
+}
+.flash-success {
+    @apply mb-4 px-4 py-3 rounded shadow-lg text-white bg-green-500;
+}
+.flash-info {
+    @apply mb-4 px-4 py-3 rounded shadow-lg text-white bg-blue-500;
+}
+.flash-report{
+    @apply  mb-4 px-4 py-3 rounded shadow-lg text-white bg-black;
+}
+.flash-report a{
+    @apply  text-blue-700 underline;
+}

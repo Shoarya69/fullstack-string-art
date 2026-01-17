@@ -1,0 +1,44 @@
+{% extends "base_mob.html" %}
+
+{% block css %}{%  endblock %}
+
+{% block content %}
+
+<h2>Your Image History</h2>
+<div class="histroy-main-full">
+{% if creations %}
+  <div class="history-container-mobile">
+    {% for c in creations %}
+      <div class="pair-mobile">
+        <div class="image-block-mobile">
+          <h4>Input</h4>
+          {% if c.input_image %}
+            <div class="image-box input-image-mobile">
+              <img src="{{ url_for('static', filename=c.input_image) }}" width="240">
+            </div>
+          {% else %}
+            <p>No input image</p>
+          {% endif %}
+        </div>
+
+        <div class="arrow-mobile">→</div>
+
+        <div class="image-block-mobile">
+          <h4>Output</h4>
+          {% if c.output_image %}
+            <div class="image-box-mobile output-image-mobile">
+              <img src="{{ url_for('static', filename=c.output_image) }}" width="240">
+            </div>
+          {% else %}
+            <p class="text-center mt-6 text-gray-600">No history found.</p>
+          {% endif %}
+        </div>
+      </div>
+      <hr>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>No history found.</p>
+{% endif %}
+</div>
+{% endblock %}

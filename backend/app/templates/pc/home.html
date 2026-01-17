@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <!-- Full-width hero section -->
+  <div class="home-hero">
+    <div class="home-hero-inner">
+      <h1 class="home-hero-title">
+        Create Amazing Art with Our String Art Generator
+      </h1>
+      <p class="home-hero-desc">
+        Transform any image into professional string art patterns. Our String Art Generator uses advanced algorithms to create detailed step-by-step instructions, allowing you to create unique thread and nail artwork.
+      </p>
+      <div class="home-hero-buttons">
+        <a href="{{url_for('product.product_page')}}" class="home-btn-primary">
+            <button >
+             Start Now
+        </button></a>
+        <button class="home-btn-secondary">
+            View Tutorial
+        </button>
+       </div>
+    </div>
+  </div>
+  <!-- picture block in This -->
+   <!-- picture block -->
+<div class="home-pictures">
+  <div class="home-picture-inner">
+    {% for i in range(5) %}
+      <img src="{{url_for('static', filename='picture/image' ~  (i+1) ~ '.png')}}" 
+           alt="Image {{ i+1 }}" 
+           class="home-picture-img">
+    {% endfor %}
+  </div>
+</div>
+<div class="home-pictures">
+  <div class="home-picture-inner">
+    {% for i in range(5) %}
+      <img src="{{url_for('static', filename='STRPICTURE/image' ~  (i+1) ~ '.png')}}" 
+           alt="Image {{ i+1 }}" 
+           class="home-picture-img">
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

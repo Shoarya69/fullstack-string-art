@@ -1,0 +1,99 @@
+{% extends "base_mob.html" %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+
+        <!-- Flash messages -->
+        <div class="fixed top-5 right-5 z-50">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+                {% if message == "DOM" and category == "ko" %}
+                     <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const data = "{{ session.get('op') }}";
+                            function change(image){
+                            let img = document.getElementById('out4');
+                            console.log("sucess");
+                            img.src = image;
+
+                        }
+                        change(data);
+                        });
+                        
+                        
+                    </script>
+                {% else %}
+                    <div 
+                        class="{% if category == 'error' %} flash-error {% elif category == 'success' %} flash-success {% elif category == 'report' %} flash-report {% else %} flash-info {% endif %}"
+                        x-data="{ show: true }"
+                        x-show="show"
+                        x-init="setTimeout(() => show = false, 4000)">
+                        {{ message }}
+                    </div>
+                {% endif %}    
+            {% endfor %}
+            {% endif %}
+        {% endwith %}
+        </div>
+
+
+        <div class="product-page-div-mobile">
+  
+        
+                <p class="image_p_pro_mob">Click on image for uploading another image</p>
+               <div class="upload-output-wrapper-mobile">
+                <div class="input-image-form">
+                    
+            <form id="uploadForm" class="up_for_load_mob_abc_upload_product" action="/upload" method="POST" enctype="multipart/form-data">
+            <label for="fileInput" class="upload-box-mobile">
+                {% if session.get('last_upload') %}
+                  
+                  <img id="preview" src="{{ url_for('static', filename=session.get('last_upload')) }}" alt="Uploaded Image" />
+                {% else %}
+                    <div class="placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 16V4a1 1 0 011-1h8a1 1 0 011 1v12m-5 4h.01M12 14l2 2 4-4m0 0l-2-2m2 2l-4 4-2-2" />
+                        </svg>
+                        <span>Click to upload image</span>
+                </div>
+                {% endif %}
+                <input id="fileInput" type="file" name="image" accept="image/*" hidden oninput="dot(this)" onchange="autoUpload()">
+            </label>
+            </form>
+            </div>
+        <div class="pro-apply-bt">
+        {% if session.get('upload_button') == 1 %}
+            <form action="/product" method="post" id="uploadForm_mob_12345" onsubmit="loader()" >
+                <input type="submit" value="Upload" class="upload-button-mobile">
+            </form>
+            <div id="loader_mob_12345" class="upload_loader-mobile hidden ">
+                <div class="w-9 h-9 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+                <p class="text-blue-600 text-sm mt-2 font-medium">processing...</p>
+            </div>
+        {% else %}
+            <div></div>    
+        {% endif %}
+    </div>
+        <div  class="image-circle-mobile">
+            <img  id="out4" src="#" alt="Image" class="pro_image_of-mobile" >
+        </div>
+        <br>
+      
+    </div>
+</div>
+<!--     
+    <script>
+        const tooLargeURL = "{{ url_for('error12.too_large') }}";
+    </script>
+    <script src="{{ url_for('static',filename='js/product.js') }}">
+        // Backend
+    </script> -->
+    
+    <script>
+        const tooLargeURL = "{{ url_for('error12.too_large') }}";
+    </script>  
+<script src="{{ url_for('static',filename='js/product_mob.js') }}" ></script>
+    {% endblock %}

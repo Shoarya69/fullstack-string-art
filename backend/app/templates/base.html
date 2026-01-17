@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Website</title>
+
+    <!-- Tailwind CSS compiled file -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='/css/output.css') }}?v=2"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+
+    {% block css %}{% endblock %}
+  </head>
+  <body>
+    <div class="base-logo">logo My compnay</div>
+    <!-- Navigation Bar -->
+    <div class="base-body">
+      <nav class="base-navbar">
+        <ul class="base-nav-list">
+          <li>
+            <a href="{{ url_for('home.home_page') }}" class="base-nav-content"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="{{ url_for('home.home_page') }}#contact"
+              class="base-nav-content"
+              >Contact</a
+            >
+          </li>
+
+          <li>
+            <a href="{{ url_for('about.about_page') }}" class="base-nav-content"
+              >About Us</a
+            >
+          </li>
+          <li>
+            <a
+              href="{{ url_for('product.product_page') }}"
+              class="base-nav-content"
+              >Generate</a
+            >
+          </li>
+          <li>
+            <a href="{{ url_for('test.test_page') }}" class="base-nav-content"
+              >Test</a
+            >
+          </li>
+          {% if session.get('user_id') %}
+          <li>
+            <a href="{{ url_for('auth.logout') }}" class="base-logout-link"
+              >Logout</a
+            >
+          </li>
+          <li>
+            <a href="{{ url_for('history.history_page')}}" class="base-history-link">
+              History
+            </a>
+          </li>
+          {% else %}
+          <li>
+            <a href="{{ url_for('auth.auth_page') }}" class="base-login-link"
+              >Login</a
+            >
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="base-main page-flex">
+        {% block content %}
+        <h1 class="base-title">This is a base Template</h1>
+        {% endblock %}
+      </main>
+
+      <!-- Footer -->
+      <footer id="contact" class="base-footer">
+        <h3 class="base-footer-h3">@copyright by abc</h3>
+        <p class="base-footer-p">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum sed
+          voluptas ipsam ut, quia soluta commodi. Sint eum impedit provident.
+          Sunt mollitia soluta magnam dolores assumenda quo ipsa provident, hic
+          illum, repudiandae dolore consectetur autem fugiat tempore illo
+          perspiciatis fuga laudantium dolorem cumque quos nihil dolor incidunt!
+          Quasi, eius rerum.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

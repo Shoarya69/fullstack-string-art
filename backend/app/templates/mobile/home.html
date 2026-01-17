@@ -1,0 +1,50 @@
+{% extends "base_mob.html" %}
+
+{% block content %}
+<!-- HERO SECTION -->
+<section class="home-hero-mobile">
+  <div class="home-hero-inner-mobile">
+    <h1 class="home-hero-title-mobile">
+      Transform <span class="text-purple-700">Images</span> into <br />
+      <span class="text-purple-800">String Art</span>
+    </h1>
+
+    <p class="home-hero-desc-mobile">
+      Turn any image into stunning string art with our advanced algorithm — simple, fast, and powerful.
+    </p>
+
+    <div class="home-hero-buttons-mobile">
+      <a href="{{ url_for('product.product_page') }}">
+        <button class="home-btn-primary-mobile">Start Now</button>
+      </a>
+      <button class="home-btn-secondary-mobile">View Tutorial</button>
+    </div>
+  </div>
+</section>
+
+<!-- RECTANGLE IMAGE ROW -->
+<section class="home-gallery-mobile">
+  {% for i in range(3) %}
+  <div class="home-gallery-item-mobile">
+    <img
+      src="{{ url_for('static', filename='picture/image' ~ (i+1) ~ '.png') }}"
+      alt="image"
+      class="home-gallery-img-mobile"
+    />
+  </div>
+  {% endfor %}
+</section>
+
+<!-- CIRCLE IMAGE ROW -->
+<section class="home-gallery-circle-mobile">
+  {% for i in range(3) %}
+  <div class="home-gallery-item-circle-mobile">
+    <img
+      src="{{ url_for('static', filename='STRPICTURE/image' ~ (i+1) ~ '.png') }}"
+      alt="circle image"
+      class="home-gallery-img-circle-mobile"
+    />
+  </div>
+  {% endfor %}
+</section>
+{% endblock %}

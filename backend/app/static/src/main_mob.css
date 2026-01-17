@@ -1,0 +1,30 @@
+@import "./history_mob.css";
+/* @import "daisyui"; */
+@import "./base_mob.css";
+@import "./home_mob.css";
+@import "./product_mob.css";
+@import "./test_mob.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .flash-base {
+    @apply w-[90%] max-w-md mx-auto mb-3 px-4 py-3 rounded-xl shadow-lg text-white text-sm sm:text-base;
+  }
+    .flash-error {
+    @apply flash-base bg-warning;
+}
+.flash-success {
+    @apply flash-base bg-success;
+}
+.flash-info {
+    @apply flash-base bg-info;
+}
+.flash-report{
+    @apply  flash-base bg-neutral;
+}
+.flash-report a{
+    @apply  text-blue-700 underline;
+}
+}

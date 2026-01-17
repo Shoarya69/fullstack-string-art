@@ -1,0 +1,72 @@
+/* ---------- home_mobile.css ---------- */
+/* Custom overrides for DaisyUI + Tailwind mobile UI */
+
+/* HERO SECTION */
+@layer components{
+  .home-hero-mobile {
+    @apply hero min-h-[60vh] bg-base-200 mt-2 rounded-2xl shadow-lg flex justify-center items-center text-center;
+  }
+
+  .home-hero-inner-mobile {
+    @apply flex flex-col items-center text-center space-y-4 w-full px-3;
+  }
+
+  .home-hero-title-mobile {
+    @apply text-3xl font-extrabold text-gray-800 leading-snug;
+  }
+
+  .home-hero-desc-mobile {
+    @apply text-sm text-gray-600 px-3;
+  }
+
+  /* BUTTON STYLES */
+  .home-btn-primary-mobile {
+    @apply btn btn-primary font-semibold px-5 rounded-xl shadow hover:scale-105 transition;
+  }
+
+  .home-btn-secondary-mobile {
+    @apply btn btn-outline btn-secondary font-semibold px-5 rounded-xl hover:bg-secondary hover:text-white transition;
+  }
+
+  /* RECTANGLE IMAGE GALLERY */
+  .home-gallery-mobile {
+    @apply flex justify-center gap-3 mt-6 w-[95%] mx-auto;
+  }
+
+  .home-gallery-item-mobile {
+    @apply card bg-base-100 w-1/3 shadow-md overflow-hidden;
+  }
+
+  .home-gallery-img-mobile {
+    @apply object-cover h-28 w-full rounded-lg;
+  }
+
+  /* CIRCLE IMAGE GALLERY */
+  .home-gallery-circle-mobile {
+    @apply flex justify-center gap-4 mt-6 w-[95%] mx-auto;
+  }
+
+  .home-gallery-item-circle-mobile {
+    @apply avatar w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2;
+  }
+
+  .home-gallery-img-circle-mobile {
+    @apply w-full h-full object-cover rounded-full;
+  }
+
+  /* RESPONSIVE TWEAKS */
+  @media (max-width: 500px) {
+    .home-hero-title-mobile {
+      @apply text-2xl;
+    }
+    .home-gallery-item-mobile {
+      @apply w-[30%];
+    }
+    .home-gallery-img-mobile {
+      @apply h-24;
+    }
+    .home-gallery-item-circle-mobile {
+      @apply w-24 h-24;
+    }
+  }
+}

@@ -1,0 +1,62 @@
+/* ---------- test_mobile.css ---------- */
+
+/* CONTAINER */
+
+
+/* MAIN BOX */
+
+
+/* TITLE (purple header bar) */
+
+
+/* FORM AREA */
+.test-form-mobile {
+  @apply flex flex-col space-y-2 w-full text-white font-extrabold text-xs;
+}
+
+.test_label-mobile {
+  @apply font-extrabold;
+}
+
+
+
+/* IMAGES SECTION */
+.test-image-boxes-mobile {
+  @apply flex justify-between w-full space-x-3;
+}
+
+.test-image-container-mobile {
+  @apply flex flex-col items-center w-1/2;
+}
+
+.test-image-mobile {
+  @apply bg-purple-700 rounded-md w-24 h-24 object-cover;
+}
+
+.test-image-label-mobile {
+  @apply text-white text-xs mt-1;
+}
+
+/* SUBMIT BUTTON */
+.test-submit-button-mobile {
+  @apply bg-gradient-to-r from-green-400 to-blue-500 text-white font-semibold px-6 py-1 rounded-md shadow hover:opacity-90 transition;
+}
+
+@layer components{
+  .test-container-mobile {
+  @apply flex justify-center w-full ;
+}
+.test-box-mobile {
+  @apply flex flex-col items-center  w-full rounded-2xl p-4 space-y-4;
+}
+.test-title-mobile {
+  @apply bg-primary text-white text-center font-semibold py-2 px-4 rounded-md w-full;
+}
+.test_select-mobile {
+  @apply bg-primary text-white rounded-md p-1 w-full;
+}
+
+.test_file-input-mobile {
+  @apply text-xs text-gray-200 bg-primary rounded-md;
+}
+}

@@ -1,0 +1,80 @@
+.test {
+  @apply text-2xl font-semibold text-gray-100 mb-6 text-left;
+}
+
+/* ==============================
+Main container (form + output)
+============================== */
+.test-container {
+  @apply flex flex-col md:flex-row items-start justify-center gap-10 w-full mt-10;
+}
+
+/* ==============================
+Input (left) box
+============================== */
+.input_test {
+  @apply w-full md:w-1/2 max-w-md min-h-[400px] 
+         bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg 
+         border border-gray-200 flex flex-col items-center justify-between;
+}
+
+/* Label + Select + Input */
+.input_test label {
+  @apply block text-sm font-medium text-gray-700 mb-2;
+}
+
+.input-box-test-12{
+  @apply text-black font-extrabold text-3xl;
+}
+
+.input_test select {
+  @apply w-full p-3 rounded-lg border border-gray-300 bg-gradient-to-r from-purple-50 to-indigo-50
+  text-gray-800 font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 hover:shadow-md transition;
+}
+
+/* Option style */
+.input_test select option {
+  @apply bg-white text-gray-800 hover:bg-purple-100 cursor-pointer;
+}
+
+/* File input */
+.input_test input[type="file"] {
+  @apply block w-full text-sm text-gray-600 mt-3 cursor-pointer hover:text-gray-800;
+}
+
+/* Button */
+.input_test button {
+  @apply mt-4 w-full px-5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-medium shadow-md hover:scale-105 transform transition;
+}
+
+/* Preview Image */
+.input_test img {
+  @apply mt-4 max-w-[200px] max-h-[250px] object-contain 
+         bg-gray-100 rounded-xl border border-gray-300 shadow-inner;
+}
+
+/* ==============================
+Output (right) box
+============================== */
+.output_test {
+  @apply w-full md:w-1/2 max-w-md min-h-[400px] bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-gray-200 flex items-center justify-center;
+}
+
+.output_test img {
+  @apply max-w-full h-auto rounded-xl shadow;
+}
+
+.input-box {
+  @apply text-xl md:text-2xl font-semibold text-center 
+         text-white 
+         py-3 px-6 rounded-xl shadow-lg tracking-wide ;
+}
+
+/* ==============================
+Responsive tweaks
+============================== */
+@media (max-width: 768px) {
+  .test-container {
+    @apply flex-col gap-6;
+  }
+}

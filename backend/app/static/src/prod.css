@@ -1,0 +1,116 @@
+.product-page-title {
+  @apply bg-black/10 text-black rounded-lg p-4 text-lg sm:text-xl md:text-2xl lg:text-3xl inline-block text-center;
+}
+
+.rectangle-box {
+  @apply bg-purple-600 text-white flex justify-center items-center w-[90vw] sm:w-[50vw] md:w-[35vw] lg:w-[30vw] h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] rounded-lg mb-6 sm:mb-0 p-4;
+}
+
+.square-box {
+  @apply relative bg-purple-600 text-white flex flex-wrap justify-center items-center w-[95vw] sm:w-[50vw] md:w-[50vw] lg:w-[50vw] h-auto sm:h-[50vh] md:h-[50vh] rounded-lg p-4 gap-4;
+}
+
+.image-container {
+  @apply rounded-md flex justify-center items-center w-[20%] h-[40%] mr-20 sm:w-[50%] md:w-[40%] lg:w-[30%] aspect-square mb-4;
+}
+
+.image-circle {
+  @apply border rounded-full flex justify-center items-center bg-white w-[60%] sm:w-[40%] md:w-[30%] lg:w-[20%] aspect-square mb-4;
+}
+
+.pro-range-input {
+  @apply w-full accent-blue-600;
+}
+
+.pro-range-label {
+  @apply block mb-2 text-base sm:text-lg md:text-lg lg:text-lg font-medium;
+}
+
+.pro-range-value {
+  @apply mt-2 text-yellow-500 text-sm sm:text-base;
+}
+
+.pro-button {
+  @apply bg-blue-500 text-white p-2 rounded mt-2 w-full sm:w-auto;
+}
+
+.upload-button {
+  @apply bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold shadow-md cursor-pointer w-full sm:w-auto;
+}
+
+.pro-apply-bt {
+  @apply absolute bottom-10 flex flex-col justify-center items-center space-y-4;
+}
+
+.pro-submit-bt {
+  @apply bg-blue-500 text-white p-2 rounded mt-2 w-full sm:w-auto;
+}
+
+/* Mobile Styles: max-width 640px */
+@media (max-width: 640px) {
+
+.rectangle-box {
+  @apply w-[90vw] h-auto p-4 flex flex-col justify-start items-center mb-6 bg-white rounded shadow;
+}
+
+/* Square Box (Images + Upload) */
+.square-box {
+  @apply w-[90vw] h-auto p-4 flex flex-col justify-start items-center gap-4 mb-6 bg-white rounded shadow;
+}
+
+/* Image container */
+.image-container {
+  @apply w-full h-[200px] mb-4 flex justify-center items-center bg-gray-100 rounded;
+}
+
+/* Circular Image */
+.image-circle img {
+  @apply w-[120px] h-[120px] rounded-full object-cover mx-auto;
+}
+
+/* Labels */
+.pro-range-label {
+  @apply text-sm font-medium mb-1;
+}
+
+/* Range Inputs */
+.pro-range-input {
+  @apply w-full mb-2;
+}
+
+.upload_loader {
+  @apply flex flex-col items-center mt-3;
+}
+
+
+/* Range values */
+.pro-range-value {
+  @apply text-xs mb-2;
+}
+
+/* Buttons */
+.pro-submit-bt,
+.pro-button,
+.upload-button {
+  @apply bg-blue-500 text-white py-2 px-4 rounded w-full mb-3 text-center;
+}
+
+/* Page title */
+.product-page-title {
+  @apply text-lg font-semibold text-center mb-6;
+}
+
+
+/* Flash messages */
+.flash-error {
+  @apply bg-red-500 text-white p-2 rounded mb-2;
+}
+.flash-success {
+  @apply bg-green-500 text-white p-2 rounded mb-2;
+}
+.flash-info {
+  @apply bg-blue-500 text-white p-2 rounded mb-2;
+}
+
+
+}

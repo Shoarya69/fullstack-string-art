@@ -1,0 +1,90 @@
+@layer components {
+  /* === Main container === */
+  /* .product-page-div-mobile {
+    @apply flex flex-col items-center justify-center w-full min-h-screen bg-base-200 py-6 space-y-6;
+  } */
+  .product-page-div-mobile {
+  @apply flex flex-col items-center justify-center w-full min-h-screen bg-base-200 py-6;
+  }
+  /* === Upload + Output container === */
+  .upload-output-wrapper-mobile {
+  @apply flex flex-col items-center justify-center space-y-6 w-1/2 max-w-sm mx-auto;
+  }
+
+  /* For smaller screens (auto vertical stack) */
+  @media (max-width: 640px) {
+    .upload-output-wrapper-mobile {
+      @apply flex-col items-center justify-center space-x-0 space-y-6;
+    }
+  }
+  .image_p_pro_mob{
+    @apply text-primary dark:text-secondary font-extrabold mb-10;
+  }
+  .input-image-form {
+    @apply flex justify-center items-center w-full;
+  }
+  /* === Upload box === */
+  .upload-box-mobile {
+    @apply flex flex-col items-center justify-center w-full max-w-sm aspect-square
+           border-2 border-dashed border-base-content/30 rounded-2xl
+           bg-base-100 hover:border-primary hover:bg-base-300 cursor-pointer
+           shadow-md transition-transform duration-300 ease-in-out
+           hover:scale-105 active:scale-95;
+  }
+
+  /* === Placeholder for empty state === */
+  .placeholder {
+    @apply flex flex-col items-center justify-center space-y-3 text-base-content/70;
+  }
+
+  .placeholder svg {
+    @apply w-10 h-10 text-primary opacity-80;
+  }
+
+  .placeholder span {
+    @apply text-sm font-medium;
+  }
+
+  /* === Image preview (when uploaded) === */
+  #preview {
+    @apply w-full h-full object-cover rounded-xl shadow-md;
+  }
+
+  /* === Output image circle preview === */
+  .image-circle-mobile {
+    @apply flex justify-center items-center bg-base-100 rounded-full shadow-lg
+           w-52 h-52 border border-base-300 overflow-hidden;
+  }
+
+  .pro_image_of-mobile {
+    @apply w-full h-full object-cover;
+  }
+
+  /* === Upload button section === */
+  .pro-apply-bt {
+    @apply flex flex-col items-center space-y-4;
+  }
+
+  /* === Upload button === */
+  .upload-button-mobile {
+    @apply btn btn-primary px-6 py-2 text-sm font-semibold rounded-lg shadow-md
+           hover:scale-105 active:scale-95 transition-transform duration-200;
+  }
+
+  /* === Loader === */
+  .upload_loader-mobile {
+    @apply flex flex-col items-center justify-center;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .upload_loader-mobile div {
+    @apply w-9 h-9 border-4 border-gray-300 border-t-primary rounded-full animate-spin;
+  }
+
+  .upload_loader-mobile p {
+    @apply text-primary text-sm mt-2 font-medium;
+  }
+}

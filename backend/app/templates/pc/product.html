@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+
+        <!-- Flash messages -->
+        <div class="fixed top-5 right-5 z-50">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+                {% if message == "DOM" and category == "ko" %}
+                     <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const data = "{{ session.get('op') }}";
+                            function change(image){
+                            let img = document.getElementById('out4');
+                            console.log("sucess");
+                            img.src = image;
+
+                        }
+                        change(data);
+                        });
+                        
+                        
+                    </script>
+                {% else %}
+                    <div 
+                        class="{% if category == 'error' %} flash-error {% elif category == 'success' %} flash-success {% elif category == 'report' %} flash-report {% else %} flash-info {% endif %}"
+                        x-data="{ show: true }"
+                        x-show="show"
+                        x-init="setTimeout(() => show = false, 4000)">
+                        {{ message }}
+                    </div>
+                {% endif %}    
+            {% endfor %}
+            {% endif %}
+        {% endwith %}
+        </div>
+
+<!-- MAIN CONTENT -->
+        <div class="flex justify-center mt-10">
+            <h1 class="product-page-title">
+                This is String ART Generator Page
+            </h1>
+            
+        </div>
+        <div class="flex justify-center items-center min-h-screen bg-gray-200 gap-4">
+  <!-- Rectangle -->
+        <div class="rectangle-box">
+            <div class="picture">
+                <form id="up_fo_pro" action="/upload" method="POST" enctype="multipart/form-data">
+                    <label for="image" class="block mb-2 text-lg font-medium">Upload your picture:</label>
+                    <input id="fi_in_pro" type="file" name="image" accept="image/*" class="border rounded p-2  "  enctype="multipart/form-data" oninput="uploadpic(this)"><br>
+                    <button type="submit" class="pro-submit-bt">Submit</button><br><br>
+                </form>
+                <form action="/uploadpins" method="post">
+                    <!-- no. of pins -->
+                    <label for="no.pin" class="pro-range-label" id="pins">Select No. of pins:</label>
+                    <input type="range" id="pin" name="pin" min="100" max="3000" value="{{ data.pins if data and data.pins else '300' }}" class="pro-range-input" oninput="updatepins(this.value)" >
+                    <p id="volumeValue" class="pro-range-value">pins: 300 pins</p>
+                    <!-- line width -->
+                    <label for="line-width" class="pro-range-label" id="li">Select line width:</label>
+                    <input type="range" id="liwt" name="liwt" min="1" max="30" value="{{ data.liwt if data and data.liwt else '15' }}" class="pro-range-input" oninput="updateliwt(this.value)"  >
+                    <p id="line-wt" class="pro-range-value">li-wt: 15 line-width</p>
+                    <!-- max lines -->
+                    <label for="max-line" class="pro-range-label" id="li">Select Max lines:</label>
+                    <input type="range" id="mxli" name="mxli" min="1" max="10000" value="{{ data.mxli if data and data.mxli else '1000' }}" class="pro-range-input" oninput="updatemxli(this.value)"  >
+                    <p id="mx-line" class="pro-range-value">mx-li: 1000 max lines</p>
+                    <button type="submit"  class="pro-button" >Submit</button>
+                </form>
+            </div>
+        </div>
+
+  <!-- Square -->
+        <div class="square-box">
+          <div class="image-container">
+            {% if session.get('last_upload') %}
+                <img id = "pic" src="{{ url_for('static', filename=session.get('last_upload')) }}" alt="image" class="max-w-full max-h-full object-contain">        
+            {% else %}
+                <img id="pic" src="{{ url_for('static', filename='picture/image2.png') }}" alt="Image" class="max-w-full max-h-full object-contain">
+            {% endif %}
+        </div>
+        
+        <div  class="image-circle">
+            <img  id="out4" src="#" alt="Image" class="max-w-full max-h-full object-contain rounded-full" >
+        </div>
+        <br>
+      <div class="pro-apply-bt">
+        {% if session.get('upload_button') == 1 %}
+            <form action="/product" method="post" id="uploadForm" onsubmit="loader()" >
+                <input type="submit" value="Upload" class="upload-button">
+            </form>
+            <div id="loader" class="upload_loader hidden ">
+                <div class="w-9 h-9 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+                <p class="text-blue-600 text-sm mt-2 font-medium">processing...</p>
+            </div>
+        {% else %}
+            <div></div>    
+        {% endif %}
+</div>
+
+    </div>
+    
+    <script>
+        const tooLargeURL = "{{ url_for('error12.too_large') }}";
+    </script>
+    <script src="{{ url_for('static',filename='js/product.js') }}">
+        // Backend
+    </script>
+    
+
+    {% endblock %}

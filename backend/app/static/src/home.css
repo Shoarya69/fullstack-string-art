@@ -1,0 +1,41 @@
+/* Hero Section */
+.home-hero {
+  @apply bg-black/10 w-full mt-10 rounded-md;
+}
+
+.home-hero-inner {
+  @apply max-w-6xl mx-auto px-6 p-10;
+}
+
+.home-hero-title {
+  @apply text-5xl text-green-600 text-center py-10;
+}
+
+.home-hero-desc {
+  @apply text-center text-lg text-gray-800 pb-10;
+}
+
+.home-hero-buttons {
+  @apply flex justify-center gap-6 mt-10 mb-10;
+}
+
+.home-btn-primary {
+  @apply p-4 border-2 border-yellow-500 bg-blue-500 hover:text-green-700 text-white rounded-md transition;
+}
+
+.home-btn-secondary {
+  @apply p-4 border-2 border-yellow-500 bg-gray-200 hover:text-green-700 text-black rounded-md transition;
+}
+
+/* Picture Blocks */
+.home-pictures {
+  @apply bg-black/10 py-10 mt-10;
+}
+
+.home-picture-inner {
+  @apply max-w-6xl mx-auto flex flex-wrap justify-center gap-6;
+}
+
+.home-picture-img {
+  @apply w-48 h-auto rounded-lg shadow-md;
+}

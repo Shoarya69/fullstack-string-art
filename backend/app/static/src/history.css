@@ -1,0 +1,84 @@
+/* ---------- history.css ---------- */
+
+/* Overall history section */
+.history-container {
+  @apply flex flex-col items-center w-full mt-6 space-y-6;
+}
+
+/* Each input-output pair box */
+.pair {
+  @apply flex items-center justify-between bg-gray-500 rounded-2xl p-6 w-4/5;
+}
+
+/* Each image block (input or output side) */
+.image-block {
+  @apply flex flex-col items-center;
+}
+
+/* Heading above each image */
+.image-block h4 {
+  @apply text-lg font-semibold text-black mb-2;
+}
+
+/* Container box for the image */
+.image-box {
+  @apply flex items-center justify-center text-white font-medium text-center;
+}
+
+/* Middle arrow (→) */
+/* .arrow {
+  @apply text-5xl font-bold text-black;
+} */
+
+.input-image {
+  @apply overflow-hidden rounded-2xl; /* rounded rectangle */
+  width: 220px;
+  height: 220px;
+  background: linear-gradient(135deg, #a8e063, #56ab2f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Output image container */
+.output-image {
+  @apply overflow-hidden rounded-full; /* perfect circle */
+  width: 220px;
+  height: 220px;
+  background: linear-gradient(135deg, #56ccf2, #2f80ed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Inside <img> fits nicely */
+.image-box img {
+  @apply w-full h-full object-cover;
+}
+
+
+.arrow {
+  font-size: 10rem; /* make the arrow bigger */
+  font-weight: bold;
+  color: #1e90ff; /* starting color */
+  animation: arrowColor 2s infinite alternate ease-in-out;
+  transition: transform 0.3s ease;
+}
+
+/* subtle zoom / bounce effect */
+.arrow:hover {
+  transform: scale(1.2);
+}
+
+/* color animation */
+@keyframes arrowColor {
+  0% {
+    color: #1e90ff; /* blue */
+  }
+  50% {
+    color: #00ff88; /* greenish */
+  }
+  100% {
+    color: #ff0088; /* pinkish */
+  }
+}
