@@ -24,9 +24,14 @@ def fun():
     os.makedirs(resize,exist_ok=True)
     path2 = os.path.join(resize)
     path3 = os.path.join(resize, os.path.basename(image_path))
+
     resize_image(image_path,path3)
     output_path=os.path.join(current_app.config.get('Size'),'output')
-    art(path2,output_path,path3)
+    
+    string_n = session.get("number_str", 2500)
+    nail_n = session.get("number_Nails", 300)
+
+    art(path2,output_path,path3,string_n,nail_n)
     image_name = os.path.basename(image_path)
     session['output_img']=output_path+"/out"+f"{image_name}"
     name_only, _ = os.path.splitext(image_name)

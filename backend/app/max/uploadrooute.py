@@ -3,8 +3,10 @@ import os
 from app.database import get_cursor,db
 import uuid
 from werkzeug.utils import secure_filename
+from app.jwt.Verify_tok import decode_tocken
+from app.jwt.decript import decrypt_payload
 
-def ok(file):
+def ok(file,token):
     filename =secure_filename(file.filename)
     print(f"{filename}")
     ext = os.path.splitext(filename)[1]
@@ -13,17 +15,21 @@ def ok(file):
     os.makedirs(upload_folder,exist_ok=True)
     save_path=os.path.join(upload_folder,filename)
     file.save(save_path)
-    if session.get('user_id'):
+    if token:
+        playload = decode_tocken(token)
         try:
-            user_id = session['user_id']
-            cursor = get_cursor()
-            quary = "INSERT INTO data (user_id, image_URL) VALUES (%s, %s)"
-            print("trying to save data in db")
-            file_name = f"uploads/{filename}"
-            cursor.execute(quary,(user_id,file_name))
-            db.commit()
-            image_id = cursor.lastrowid
-            session['image_id'] = image_id
+            playload_1 = decrypt_payload(playload['enc'])
+            if playload_1['user_id']:
+                user_id = playload_1['user_id']
+                session['user_id']= user_id
+                cursor = get_cursor()
+                quary = "INSERT INTO data (user_id, image_URL) VALUES (%s, %s)"
+                print("trying to save data in db")
+                file_name = f"uploads/{filename}"
+                cursor.execute(quary,(user_id,file_name))
+                db.commit()
+                image_id = cursor.lastrowid
+                session['image_id'] = image_id
         except Exception as e:
             db.rollback()
             print("The Error is : ",e)

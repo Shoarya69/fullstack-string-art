@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { ArrowRight, Loader2 } from 'lucide-react';
+import { Login_api } from '@/services/login_api';
+import validator from "validator";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -15,7 +17,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
-
+  // const isValid = validator.isEmail(email);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -23,13 +25,24 @@ const Login = () => {
       toast.error('Please fill in all fields');
       return;
     }
-
+    // if (!isValid){
+    //   toast.error("Please enter valid email");
+    //   return;
+    // }
     setIsLoading(true);
     try {
-      const success = await login(email, password);
-      if (success) {
+      const success = await Login_api(email, password);
+      
+      if (success.token) {
+        localStorage.setItem("token", success.token);
         toast.success('Welcome back!');
+        const suc = await login(email, password);
+
         navigate('/dashboard');
+      }
+      if (success.error){
+        toast.error(success.error);
+        return;
       }
     } catch (error) {
       toast.error('Login failed. Please try again.');
@@ -52,7 +65,7 @@ const Login = () => {
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <Input
-              type="email"
+              type="text"
               placeholder="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

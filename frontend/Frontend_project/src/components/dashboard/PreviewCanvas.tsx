@@ -26,10 +26,11 @@ export const PreviewCanvas = ({
   connections = [],
 }: PreviewCanvasProps) => {
   const size = 800;
+  const max_c = connections.length;
   const center = size / 2;
-  const [color, setColor] = useState({ r: 128, g: 0, b: 128, a: 1 });
-  const [bgcolor, setBgColor] = useState({ r: 240, g: 240, b: 240, a: 1 });
-  const [thickness, setThickness] = useState(2);
+  const [color, setColor] = useState({ r: 255, g: 255, b: 255, a: 1 });
+  const [bgcolor, setBgColor] = useState({ r: 0, g: 0, b: 0, a: 1 });
+  const [thickness, setThickness] = useState(0.3);
   const [currentIndex, setCurrentIndex] = useState(0);
   const retRef = useRef(false);
   const [speed, setSpeed] = useState(1.0); // Speed multiplier for Auto mode (1.0x to 9.0x)
@@ -59,7 +60,7 @@ export const PreviewCanvas = ({
 
     setLines(mappedLines);
     setCurrentIndex(0);
-    setStringLimit(Math.min(mappedLines.length, 4000)); // Initialize to 4000 or max available
+    setStringLimit(Math.min(mappedLines.length, max_c)); // Initialize to 4000 or max available
     setIsPreviewMode(false); // Reset to step-by-step mode on new data
   }, [connections]);
 
@@ -121,16 +122,19 @@ export const PreviewCanvas = ({
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
       className="glass-card overflow-hidden relative p-4 center-items justify-items-center"
-      style={{ backgroundColor: `rgba(${bgcolor.r},${bgcolor.g},${bgcolor.b},${bgcolor.a})` }}
+      
     >
       <Stage
         width={size}
         height={size}
-
+        style={{ backgroundColor: `rgba(${bgcolor.r},${bgcolor.g},${bgcolor.b},${bgcolor.a})`,
+                   borderRadius: "50%",      // 🔵 perfect circle
+                    overflow: "hidden",
+                  }}
       >
-        <Layer>
+        <Layer  >
           {points.map((p, i) => (
-            <Circle key={i} x={p.x} y={p.y} radius={2} fill="#888" />
+            <Circle key={i} x={p.x} y={p.y} radius={2} fill="#888"  />
           ))}
 
           {/* Render connections based on mode:
@@ -238,7 +242,7 @@ export const PreviewCanvas = ({
           <StringCountKnob
             value={stringLimit}
             min={0}
-            max={4000}
+            max={max_c}
             onChange={setStringLimit}
           />
         </div>
@@ -437,6 +441,7 @@ export const PreviewCanvas = ({
           </div>
         </div>
       </div>
+      
     </motion.div>
   );
 };

@@ -4,15 +4,12 @@ import numpy as np
 from time import time
 from app.thread.pipline2 import Config as config
 
-PINS = config.numberOfNails
-MIN_DISTANCE = config.minDist
-MAX_LINES = config.maxLines
-LINE_WEIGHT = config.calculationLineWeight
+# PINS = config.numberOfNails
+# MIN_DISTANCE = config.minDist
+# MAX_LINES = config.maxLines
+# LINE_WEIGHT = config.calculationLineWeight
 
 
-# Only for manual testing:
-IMG_PATH = "./CroppedImages/Try.png"
-IMG_SIZE = 375
 
 
 class Coord:
@@ -74,8 +71,8 @@ class Generator:
         self.lineCache_y = np.empty((self.PINS * self.PINS), dtype = object)
         self.lineCache_x = np.empty((self.PINS * self.PINS), dtype = object)
 
-        for i in range(PINS):
-            for j in range(i + MIN_DISTANCE, PINS):
+        for i in range(self.PINS):
+            for j in range(i + self.MIN_DISTANCE, self.PINS):
                 x0 = self.pinCoords[i].x
                 y0 = self.pinCoords[i].y
                 x1 = self.pinCoords[j].x

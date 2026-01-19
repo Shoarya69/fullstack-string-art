@@ -15,6 +15,9 @@ const Dashboard = () => {
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [exist, setExist] = useState(false);
+  const [numberOfStrings,setNumberOfStrings] = useState(2500);
+  const [numberOfNails,setNumberOfNailes] = useState(300);
+
   const [connections, setConnections] = useState<[number, number][]>([]);
   const handleImageSelect = (file: File, preview: string) => {
     setImageFile(file);
@@ -34,6 +37,7 @@ const Dashboard = () => {
 
       const data: [number, number][] = await res.json();
       setConnections(data);
+      console.log(data.length)
       setExist(true);
 
     } catch {
@@ -53,7 +57,7 @@ const Dashboard = () => {
       setLoading(true);
 
       // 1️⃣ Upload
-      const up = await uploadImage(imageFile);
+      const up = await uploadImage(imageFile,numberOfStrings,numberOfNails);
       if (!up.success) {
         toast.error('Upload failed');
         return;
@@ -96,14 +100,19 @@ const Dashboard = () => {
             setResultImage(null);
             setImageFile(null);
           }}
+          numberOfStrings={numberOfStrings}
+          setNumberOfStrings={setNumberOfStrings}
+          numberOfNailes={numberOfNails}
+          setNumberOfNailes={setNumberOfNailes}
         />
-
+        
         <PreviewCanvas
           exist = {exist}
           isProcessing={loading}
           connections={connections}
+          totalPoints={numberOfNails}
         />
-
+        
         <div className="space-y-3 max-w-sm">
           <Button onClick={handleProcess} disabled={loading}>
             {loading ? <Loader2 className="animate-spin mr-2" /> : null}

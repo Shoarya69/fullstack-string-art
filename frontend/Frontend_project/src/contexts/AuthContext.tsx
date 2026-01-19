@@ -1,9 +1,22 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
+import { jwtDecode } from "jwt-decode";
 
 interface User {
   id: string;
   email: string;
   name: string;
+}
+
+interface JwtPayload {
+  exp: number;
+  user_id?: string;
+  email?: string;
 }
 
 interface AuthContextType {
@@ -16,50 +29,97 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(() => {
-    const saved = localStorage.getItem('user');
-    return saved ? JSON.parse(saved) : null;
-  });
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [user, setUser] = useState<User | null>(null);
 
-  const login = useCallback(async (email: string, password: string): Promise<boolean> => {
-    // Frontend-only auth simulation - ready for API integration
-    // In production, replace with: const response = await api.login(email, password);
-    
-    // Simulate successful login
-    const mockUser: User = {
-      id: '1',
-      email,
-      name: email.split('@')[0],
-    };
-    
-    setUser(mockUser);
-    localStorage.setItem('user', JSON.stringify(mockUser));
-    return true;
+  // 🔐 JWT validity check
+  const isTokenValid = useCallback((): boolean => {
+    const token = localStorage.getItem("token");
+    if (!token) return false;
+
+    try {
+      const decoded = jwtDecode<JwtPayload>(token);
+      const now = Math.floor(Date.now() / 1000);
+
+      return decoded.exp > now;
+    } catch {
+      return false;
+    }
   }, []);
 
-  const register = useCallback(async (name: string, email: string, password: string): Promise<boolean> => {
-    // Frontend-only auth simulation - ready for API integration
-    // In production, replace with: const response = await api.register(name, email, password);
-    
-    const mockUser: User = {
-      id: '1',
-      email,
-      name,
-    };
-    
-    setUser(mockUser);
-    localStorage.setItem('user', JSON.stringify(mockUser));
-    return true;
-  }, []);
+  // 🔁 Restore auth state on reload
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const savedUser = localStorage.getItem("user");
+
+    if (!token || !savedUser || !isTokenValid()) {
+      logout();
+      return;
+    }
+
+    setUser(JSON.parse(savedUser));
+  }, [isTokenValid]);
+
+  const login = useCallback(
+    async (email: string, password: string): Promise<boolean> => {
+      /*
+        🔥 Replace with real API call
+        const res = await api.login(email, password);
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("user", JSON.stringify(res.user));
+      */
+
+      // Mock token (expires in 1 minute)
+      const mockToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+        btoa(
+          JSON.stringify({
+            exp: Math.floor(Date.now() / 1000) + 60,
+          })
+        ) +
+        ".signature";
+
+      const mockUser: User = {
+        id: "1",
+        email,
+        name: "Demo",
+      };
+
+      localStorage.setItem("token", mockToken);
+      localStorage.setItem("user", JSON.stringify(mockUser));
+      setUser(mockUser);
+
+      return true;
+    },
+    []
+  );
+
+  const register = useCallback(
+    async (name: string, email: string, password: string): Promise<boolean> => {
+      // same as login for now
+      return login(email, password);
+    },
+    [login]
+  );
 
   const logout = useCallback(() => {
     setUser(null);
-    localStorage.removeItem('user');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, register, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user && isTokenValid(),
+        login,
+        register,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -68,7 +128,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within AuthProvider");
   }
   return context;
 };

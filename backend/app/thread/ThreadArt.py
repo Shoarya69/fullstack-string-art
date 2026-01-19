@@ -11,14 +11,16 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 	# imgPath = "./src/Inputs/AbrahamLincoln.png"
 	# imgPath = "./src/Inputs/MonaLisa.png"
 
-def art(input,output,img_path):
+def art(input,output,img_path,mxli=2500,pins=300):
 	Config.sourceFolder = input
 	Config.resultFolder = output
 	Config.pathFolder=os.path.join(BASE_DIR,'src','paths')
 	Config.imgPath = img_path
 	# Config.maxLines = mxli
 	# Config.calculationLineWeight = liwt
-	# Config.numberOfNails = pins
+	Config.numberOfNails = int(pins)
+	
+	Config.maxLines = mxli
 	Pipeline.Generate()
 
 

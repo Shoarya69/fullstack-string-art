@@ -1,15 +1,15 @@
-from flask import Blueprint,render_template,session,request,url_for,redirect,flash
+from flask import Blueprint,render_template,session,request,url_for,redirect,flash,jsonify
 from app.database import get_cursor
 from app.all_dir.diretre12 import Static,template
-
+from app.jwt.Create_tok import Create_token
 auth = Blueprint("auth",__name__,static_folder=Static,template_folder=template)
 
-@auth.route('/auth',methods=['GET','POST'])
+@auth.route('/api/auth',methods=['POST'])
 def auth_page():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-
+    
+    username = request.form['username']
+    password = request.form['password']
+    try:
         cursor = get_cursor()
 
         cursor.execute("SELECT * FROM users WHERE username = %s AND password = %s",(username,password))
@@ -17,15 +17,18 @@ def auth_page():
         cursor.close()
 
         if user:
-            session['user_id'] = user['id']
-            return redirect(url_for('home.home_page'))
+            # session['user_id'] = user['id']
+            token = Create_token( user['id'],user['username'])
+            return jsonify({"token": token})
         else:
-            flash("incorrect password or username",'error')
-            return redirect(url_for('auth_page'))
-    return render_template('auth.html')
+            return jsonify({"error": "either username or password is incorrect"})
+    except Exception as e:
+        print(e)
+        return jsonify({"error": "Somting went wrong"})
 
-@auth.route('/logout',methods=['GET','POST'])
+
+@auth.route('/logout',methods=['POST'])
 def logout():
     session.clear()
     flash('success fully log out')
-    return redirect(url_for('home.home_page'))
+    return jsonify({"logout":"succefully"})

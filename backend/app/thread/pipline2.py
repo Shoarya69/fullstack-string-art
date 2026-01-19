@@ -1,3 +1,5 @@
+from flask import session
+
 
 
 
@@ -19,9 +21,9 @@ class Config:
 
 
 	# ----- Calculation -----
-	numberOfNails = 300				# Default : 300
+	numberOfNails = 600				# Default : 300
 	minDist = 30					# Default : 30
-	maxLines = 4000					# Default : 4000
+	maxLines = 5000					# Default : 4000
 	calculationLineWeight = 40		# Default : 40
 	sourcePhotoContrast = 1			# Default : 1 (0 is gray, no max)
 	sourcePhotoBrightness = 1		# Default : 1 (0 is black, no max)

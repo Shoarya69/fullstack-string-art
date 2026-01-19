@@ -14,7 +14,8 @@ def api_upload():
         return jsonify({"success": False, "message": "No image file"}), 400
 
     file = request.files['image']
-
+    session['number_str'] = int(request.form.get('Number_Str'))
+    session['number_Nails'] = int(request.form.get('Number_Nails'))
     if file.filename == '':
         return jsonify({"success": False, "message": "Empty filename"}), 400
 

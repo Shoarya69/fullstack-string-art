@@ -13,7 +13,7 @@ class Visualization:
 
 	def start(self):
 		print("Starting visualisation...")
-
+		print(config.numberOfNails)
 		nailsCoords = []
 		radius = self.size / 2 - 10
 		for i in range(config.numberOfNails):

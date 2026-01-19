@@ -6,12 +6,28 @@ interface ImageUploadProps {
   onImageSelect: (file: File, preview: string) => void;
   previewUrl: string | null;
   onClear: () => void;
+  numberOfStrings: number;
+  numberOfNailes: number
+  setNumberOfNailes: (value: number) => void
+  setNumberOfStrings: (value: number) => void;
 }
 
-export const ImageUpload = ({ onImageSelect, previewUrl, onClear }: ImageUploadProps) => {
+export const ImageUpload = ({ onImageSelect, previewUrl, onClear,numberOfStrings, setNumberOfStrings,numberOfNailes,setNumberOfNailes }: ImageUploadProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [zoom, setZoom] = useState(1);
+  const handleNailCountChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setNumberOfNailes(parseInt(e.target.value, 10));
+    },
+    [setNumberOfNailes]
+  );
 
+  const handleStringCountChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setNumberOfStrings(parseInt(e.target.value, 10));
+    },
+    [setNumberOfStrings]
+  );
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -168,7 +184,7 @@ export const ImageUpload = ({ onImageSelect, previewUrl, onClear }: ImageUploadP
                 </div>
               </motion.div>
             </label>
-
+            
             {/* Upload Button */}
             <button
               onClick={() => document.getElementById('file-upload-input')?.click()}
@@ -176,9 +192,52 @@ export const ImageUpload = ({ onImageSelect, previewUrl, onClear }: ImageUploadP
             >
               Upload Your Image
             </button>
+            {/* Number of Strings Control */}
+            
           </motion.div>
         )}
+        <div className="w-full max-w-[320px] mt-4">
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-medium text-foreground">
+                  Number of Strings
+                </label>
+                <span className="text-sm text-muted-foreground">
+                  {numberOfStrings}
+                </span>
+            </div>
+             <input
+                type="range"
+                min="1000"
+                max="5000"
+                step="10"
+                value={numberOfStrings}
+                onChange={handleStringCountChange}
+                className="zoom-slider border-black border-2"
+              />
+          </div>
+          <div className="w-full max-w-[320px] mt-4">
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-medium text-foreground">
+                  Number of Nail
+                </label>
+                <span className="text-sm text-muted-foreground">
+                  {numberOfNailes}
+                </span>
+            </div>
+             <input
+                type="range"
+                min="100"
+                max="900"
+                step="10"
+                value={numberOfNailes}
+                onChange={handleNailCountChange}
+                className="zoom-slider border-black border-2"
+              />
+          </div>
+          
+          
       </AnimatePresence>
+      
     </div>
   );
 };

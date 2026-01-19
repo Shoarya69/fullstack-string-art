@@ -46,7 +46,7 @@ def web():
     # app.register_blueprint(test,url_prefix="")
     app.register_blueprint(regi,url_prefix="")
     app.register_blueprint(upload,url_prefix="")
-    app.register_blueprint(history,url_prefix="")
+    # app.register_blueprint(history,url_prefix="")
     app.register_blueprint(error12,url_prefix="")
     
     # app.register_blueprint(errorhad,url_prefix="")

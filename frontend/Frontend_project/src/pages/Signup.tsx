@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { ArrowRight, Loader2 } from 'lucide-react';
+import validator from "validator";
+import { Regi_api } from '@/services/regi_api';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -16,6 +18,14 @@ const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
+  const isValid = validator.isEmail(email);
+  const isStrong = validator.isStrongPassword(password, {
+      minLength: 6,      // 👈 yahin change
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+    });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,18 +34,28 @@ const Signup = () => {
       toast.error('Please fill in all fields');
       return;
     }
-
-    if (password.length < 6) {
-      toast.error('Password must be at least 6 characters');
+     if (!validator.isEmail(email)) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+    if (isStrong) {
+      toast.error('Password is not strong');
       return;
     }
 
     setIsLoading(true);
     try {
-      const success = await register(name, email, password);
-      if (success) {
+      const data = await Regi_api(email,password);
+      if (data.token) {
         toast.success('Account created successfully!');
+        localStorage.setItem("token", data.token)
+        const success = await register(name, email, password);
+
         navigate('/dashboard');
+      }
+      if (data.error){
+        toast.error(data.error);
+        return;
       }
     } catch (error) {
       toast.error('Registration failed. Please try again.');
