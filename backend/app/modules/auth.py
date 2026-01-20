@@ -19,6 +19,7 @@ def auth_page():
         if user:
             # session['user_id'] = user['id']
             token = Create_token( user['id'],user['username'])
+            
             return jsonify({"token": token})
         else:
             return jsonify({"error": "either username or password is incorrect"})

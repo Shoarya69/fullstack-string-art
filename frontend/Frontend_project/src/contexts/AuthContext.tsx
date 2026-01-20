@@ -72,22 +72,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       */
 
       // Mock token (expires in 1 minute)
-      const mockToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
-        btoa(
-          JSON.stringify({
-            exp: Math.floor(Date.now() / 1000) + 60,
-          })
-        ) +
-        ".signature";
+     
 
       const mockUser: User = {
         id: "1",
         email,
         name: "Demo",
       };
-
-      localStorage.setItem("token", mockToken);
       localStorage.setItem("user", JSON.stringify(mockUser));
       setUser(mockUser);
 

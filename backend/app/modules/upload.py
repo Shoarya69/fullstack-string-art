@@ -16,6 +16,15 @@ def api_upload():
     file = request.files['image']
     session['number_str'] = int(request.form.get('Number_Str'))
     session['number_Nails'] = int(request.form.get('Number_Nails'))
+    auth = request.headers.get("Authorization")
+    if not auth or not auth.startswith("Bearer "):
+        return jsonify({
+            "success": False,
+            "message": "Invalid or missing Authorization header"
+        }), 401
+
+    token = auth.split(" ")[1]
+    
     if file.filename == '':
         return jsonify({"success": False, "message": "Empty filename"}), 400
 
@@ -23,7 +32,11 @@ def api_upload():
         return jsonify({"success": False, "message": "File type not allowed"}), 400
 
     # 🔥 EXISTING LOGIC (DO NOT TOUCH)
-    ok(file)
+    try:
+        ok(file,token)
+    except Exception as e:
+        print(e)
+        return jsonify({"error":"Somting off in server side"})
     try:
         cloud_s(file)
     except Exception as e:

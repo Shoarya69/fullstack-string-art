@@ -35,6 +35,7 @@ const Login = () => {
       
       if (success.token) {
         localStorage.setItem("token", success.token);
+        
         toast.success('Welcome back!');
         const suc = await login(email, password);
 

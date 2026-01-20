@@ -16,9 +16,10 @@ def ok(file,token):
     save_path=os.path.join(upload_folder,filename)
     file.save(save_path)
     if token:
-        playload = decode_tocken(token)
         try:
-            playload_1 = decrypt_payload(playload['enc'])
+            playload = decode_tocken(token)
+            jwT_playload = playload['playload']
+            playload_1 = decrypt_payload(jwT_playload['enc_key'])
             if playload_1['user_id']:
                 user_id = playload_1['user_id']
                 session['user_id']= user_id

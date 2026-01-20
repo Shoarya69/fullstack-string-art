@@ -55,9 +55,9 @@ const Dashboard = () => {
 
     try {
       setLoading(true);
-
-      // 1️⃣ Upload
-      const up = await uploadImage(imageFile,numberOfStrings,numberOfNails);
+      const token = localStorage.getItem("token")
+             // 1️⃣ Upload
+      const up = await uploadImage(imageFile,numberOfStrings,numberOfNails,token);
       if (!up.success) {
         toast.error('Upload failed');
         return;

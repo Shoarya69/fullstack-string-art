@@ -21,8 +21,8 @@ def Create_token(user_id: int, username: str):
     expire = now +timedelta(hours=1)
     playload = {
         "enc_key": enc_key,
-        "iat": int(now.timestamp()),
-        "exp": int(expire.timestamp()),
+        "iat": now,
+        "exp": expire,
         "jti" : str(uuid.uuid4())
     }
     try:
